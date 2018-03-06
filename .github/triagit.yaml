@@ -6,10 +6,10 @@ rules:
 - name: close_issues_older_than_7_days
   rule: close_outdated_issues
   options:
-    older_than: P7D
+    older_than: P1D
     apply_label: inactive
     add_comment: |
-      Sorry, closing the issue as it's older than 7 days.
+      Sorry, closing the issue as it's older than 1 day.
       Please feel free to reopen if it's still relevant.
     
 - name: pr_matches_format
@@ -21,24 +21,24 @@ rules:
     add_comment: |
       - Please include issue number in the PR title (e.g. #123)
 
-- name: close_outdated_prs_older_than_7_days
+- name: close_outdated_prs_older_than_1_day
   rule: close_outdated_pr
   options:
-    older_than: P7D
+    older_than: P1D
     apply_label: inactive
     add_comment: |
-      Sorry, closing the PR as it's older than 7 days.
+      Sorry, closing the PR as it's older than 1 day.
       Please feel free to reopen if it's still relevant.
 
 - name: pr_size
   rule: pr_size_check
   options:
     strategy:
-      - lines: 100
-        files: 10
+      - lines: 10
+        files: 2
         apply_label: size-small
-      - lines: 200
-        files: 20
+      - lines: 20
+        files: 4
         apply_label: size-medium
       - apply_label: size-large
         add_comment: |
