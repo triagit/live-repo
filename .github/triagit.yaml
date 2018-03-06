@@ -1,0 +1,45 @@
+---
+# Triagit covers common git workflows
+# Reference: https://www.triagit.com/docs/
+rules:
+
+- name: close_issues_older_than_7_days
+  rule: close_outdated_issues
+  options:
+    older_than: P7D
+    apply_label: inactive
+    add_comment: |
+      Sorry, closing the issue as it's older than 7 days.
+      Please feel free to reopen if it's still relevant.
+    
+- name: pr_matches_format
+  rule: pr_format
+  options:
+    match_title:
+      - "^#\\d+"
+    apply_label: invalid
+    add_comment: |
+      - Please include issue number in the PR title (e.g. #123)
+
+- name: close_outdated_prs_older_than_7_days
+  rule: close_outdated_pr
+  options:
+    older_than: P7D
+    apply_label: inactive
+    add_comment: |
+      Sorry, closing the PR as it's older than 7 days.
+      Please feel free to reopen if it's still relevant.
+
+- name: pr_size
+  rule: pr_size_check
+  options:
+    strategy:
+      - lines: 100
+        files: 10
+        apply_label: size-small
+      - lines: 200
+        files: 20
+        apply_label: size-medium
+      - apply_label: size-large
+        add_comment: |
+          Your PR is way too large
